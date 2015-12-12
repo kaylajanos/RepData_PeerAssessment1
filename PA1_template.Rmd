@@ -1,5 +1,6 @@
 ---
 title: "Peer Assessment 1"
+output: html_document
 ---
 
 **Loading and Processing the Data**
@@ -9,11 +10,11 @@ title: "Peer Assessment 1"
 activity<-read.csv("activity.csv")
 ```
 
-2. Transform the data as needed 
-  - Updating Date to Date format 
-  - Removing NAs
-  - Placing in tbl format to use dpylr 
-```{r echo=TRUE}
+2. Transform the data as needed
+  + Updating Date to Date format 
+  + Removing NAs
+  + Placing in tbl format to use dpylr 
+```{r echo=TRUE, warning=FALSE, message=FALSE}
 activity$date<-as.Date(activity$date)
 activity<-na.omit(activity)
 library(dplyr)
@@ -41,14 +42,14 @@ step_stats <- daily_steps %>%
 
 ```
 
-  -The Mean number of steps taken per day is equal to `r step_stats$mean_steps`  
-  -The Median number of steps taken per day is equal to `r step_stats$median_steps`  
+- The Mean number of steps taken per day is equal to `r step_stats$mean_steps`  
+- The Median number of steps taken per day is equal to `r step_stats$median_steps`  
   
 **What is the average daily activity pattern?**
 
 1.Make a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
-  - First Summarize 
-  - Then Plot 
+  + First Summarize   
+  + Then Plot   
 ```{r}
 interval<- activity %>%
             group_by(interval) %>%
@@ -62,12 +63,12 @@ plot(interval$interval,interval$mean_steps,type="l",xlab="Interval",ylab = "Aver
 ```{r}
 max_int<-interval$interval[which.max(interval$mean_steps)]
 ```
--The Maximum average steps took place during interval `r max_int`
+- The Maximum average steps took place during interval `r max_int`
   
 **Imputing missing values**  
-1.Calculate and report the total number of missing values in the dataset (i.e. the total number of rows with NAs)
-- Since I originally removed the missings, I am reading back in the data
-- Then using summary to see which variables have missing values
+1.Calculate and report the total number of missing values in the dataset (i.e. the total number of rows with NAs)  
+  + Since I originally removed the missings, I am reading back in the data  
+  + Then using summary to see which variables have missing values  
 ```{r echo=TRUE}
 activity2<-read.csv("activity.csv")
 activity2$date<-as.Date(activity2$date)
@@ -82,8 +83,8 @@ missings<-sum(is.na(activity2$steps))
 - The total number of missing values is `r missings`
 
 2.Devise a strategy for filling in all of the missing values in the dataset. The strategy does not need to be sophisticated. For example, you could use the mean/median for that day, or the mean for that 5-minute interval, etc.  
-- I am going to fill in the median number of average steps per interval step  
-  - Average number of steps per interval is saved in interval already, just need to find median   
+  + I am going to fill in the median number of average steps per interval step  
+  + Average number of steps per interval is saved in interval already, just need to find median   
   
 3.Create a new dataset that is equal to the original dataset but with the missing data filled in.  
 ```{r echo=TRUE}
@@ -100,7 +101,7 @@ summary(activity2)
 - There are no longer any missings   
 
 4.Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day.  
-- First I will need to get total steps per day, then I can plot the histogram  
+  + First I will need to get total steps per day, then I can plot the histogram  
 ```{r echo=TRUE}
 new_sum<- activity2 %>% 
           group_by(date)%>%
@@ -125,9 +126,9 @@ new_stats<- new_sum %>%
 
 **Are there differences in activity patterns between weekdays and weekends?**
 1.Create a new factor variable in the dataset with two levels - "weekday" and "weekend" indicating whether a given date is a weekday or weekend day.
-  - Figure out Day of week with weekdays()
-  - Assign daytype orginally to weekday
-  - change Day Type on Sat/Sun
+  + Figure out Day of week with weekdays()
+  + Assign daytype orginally to weekday
+  + change Day Type on Sat/Sun
 ```{r echo=TRUE}
 activity2$day<-as.factor(weekdays(activity2$date))
 activity2$daytype<-"weekday"

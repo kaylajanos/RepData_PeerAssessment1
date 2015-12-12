@@ -211,7 +211,7 @@ hr {
 </code></pre>
 
 <ol>
-<li>Transform the data as needed 
+<li>Transform the data as needed
 
 <ul>
 <li>Updating Date to Date format </li>
@@ -254,16 +254,18 @@ activity&lt;-tbl_df(activity)
                 summarize(mean_steps=mean(total_steps),median_steps=median(total_steps))
 </code></pre>
 
-<p>-The Mean number of steps taken per day is equal to 1.0766189 &times; 10<sup>4</sup><br/>
-  -The Median number of steps taken per day is equal to 10765  </p>
+<ul>
+<li>The Mean number of steps taken per day is equal to 1.0766189 &times; 10<sup>4</sup><br/></li>
+<li>The Median number of steps taken per day is equal to 10765<br/></li>
+</ul>
 
 <p><strong>What is the average daily activity pattern?</strong></p>
 
 <p>1.Make a time series plot (i.e. type = &ldquo;l&rdquo;) of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)</p>
 
 <ul>
-<li>First Summarize </li>
-<li>Then Plot </li>
+<li>First Summarize<br/></li>
+<li>Then Plot<br/></li>
 </ul>
 
 <pre><code class="r">interval&lt;- activity %&gt;%
@@ -281,14 +283,16 @@ plot(interval$interval,interval$mean_steps,type=&quot;l&quot;,xlab=&quot;Interva
 <pre><code class="r">max_int&lt;-interval$interval[which.max(interval$mean_steps)]
 </code></pre>
 
-<p>-The Maximum average steps took place during interval 835</p>
+<ul>
+<li>The Maximum average steps took place during interval 835</li>
+</ul>
 
 <p><strong>Imputing missing values</strong><br/>
-1.Calculate and report the total number of missing values in the dataset (i.e. the total number of rows with NAs)</p>
+1.Calculate and report the total number of missing values in the dataset (i.e. the total number of rows with NAs)  </p>
 
 <ul>
-<li>Since I originally removed the missings, I am reading back in the data</li>
-<li>Then using summary to see which variables have missing values</li>
+<li>Since I originally removed the missings, I am reading back in the data<br/></li>
+<li>Then using summary to see which variables have missing values<br/></li>
 </ul>
 
 <pre><code class="r">activity2&lt;-read.csv(&quot;activity.csv&quot;)
@@ -320,11 +324,8 @@ summary(activity2)
 <p>2.Devise a strategy for filling in all of the missing values in the dataset. The strategy does not need to be sophisticated. For example, you could use the mean/median for that day, or the mean for that 5-minute interval, etc.  </p>
 
 <ul>
-<li>I am going to fill in the median number of average steps per interval step<br/>
-
-<ul>
+<li>I am going to fill in the median number of average steps per interval step<br/></li>
 <li>Average number of steps per interval is saved in interval already, just need to find median<br/></li>
-</ul></li>
 </ul>
 
 <p>3.Create a new dataset that is equal to the original dataset but with the missing data filled in.  </p>
